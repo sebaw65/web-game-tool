@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { StyledCanvas } from "./styled";
 import { OrbitControls } from "@react-three/drei";
 import { Light } from "./Light";
@@ -10,7 +10,9 @@ export const Scene = () => {
       <OrbitControls />
       <Light id={1} />
 
-      <Model />
+      <Suspense fallback={null}>
+        <Model />
+      </Suspense>
     </StyledCanvas>
   );
 };

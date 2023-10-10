@@ -1,17 +1,16 @@
 import React from "react";
 import { StyledCanvas } from "./styled";
-import { OrbitControls, useFBX } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
+import { Light } from "./Light";
+import { Model } from "./Model";
 
 export const Scene = () => {
-  const model = useFBX("/src/assets/char.fbx");
-
-  console.log(model);
   return (
-    <StyledCanvas camera={{ position: [10, 150, 200] }}>
+    <StyledCanvas camera={{ position: [10, 70, 200] }}>
       <OrbitControls />
-      <pointLight intensity={100000} position={[10, 110, 150]} />
+      <Light id={1} />
 
-      <primitive object={model} rotation={[0, Math.PI, 0]} />
+      <Model />
     </StyledCanvas>
   );
 };

@@ -4,12 +4,34 @@ import { useControls } from "leva";
 import { Group } from "three";
 import { type GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 
+type GLTFResult = GLTF & {
+  nodes: {
+    CL: THREE.SkinnedMesh;
+    FA_EA_1: THREE.SkinnedMesh;
+    FA_Skin_1: THREE.SkinnedMesh;
+    GL_1: THREE.SkinnedMesh;
+    HR_1: THREE.SkinnedMesh;
+    PA_1: THREE.SkinnedMesh;
+    SH_1: THREE.SkinnedMesh;
+    Bip01: THREE.Bone;
+    FA_Skin: THREE.Bone;
+    CL_1: THREE.Bone;
+    GL: THREE.Bone;
+    SH: THREE.Bone;
+    PA: THREE.Bone;
+    FA_EA: THREE.Bone;
+  };
+  materials: {
+    skin: THREE.MeshStandardMaterial;
+  };
+};
+
 export const Model = () => {
   const sceneRef = useRef<Group | null>(null);
 
   const { nodes, materials, animations } = useGLTF(
     "/src/assets/char.glb"
-  ) as GLTF;
+  ) as GLTFResult;
 
   const { actions, names, mixer } = useAnimations(animations, sceneRef);
 
@@ -41,9 +63,8 @@ export const Model = () => {
   });
 
   useEffect(() => {
-    console.log(animationName, names);
     mixer.stopAllAction();
-    actions[`${animationName}`]?.play();
+    actions[animationName].fadeIn(0.6).play();
   }, [animationName, actions]);
 
   return (

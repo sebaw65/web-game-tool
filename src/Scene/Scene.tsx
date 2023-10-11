@@ -4,11 +4,11 @@ import { OrbitControls } from "@react-three/drei";
 import { Light } from "./Light";
 import { Model } from "./Model";
 
-export const Scene = () => {
+export const Scene: React.FC = () => {
   return (
     <StyledCanvas camera={{ position: [10, 70, 200] }}>
       <OrbitControls />
-      <Light id={1} />
+      <Light />
 
       <Suspense fallback={null}>
         <Model />

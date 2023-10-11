@@ -1,11 +1,7 @@
 import React, { useMemo } from "react";
-import { useControls } from "leva";
+import { folder, useControls } from "leva";
 
-interface LightProps {
-  id: number;
-}
-
-export const Light: React.FC<LightProps> = ({ id }) => {
+export const Light: React.FC = () => {
   const options = useMemo(() => {
     return {
       x: { value: 10, min: 0, max: 10, step: 0.01 },
@@ -14,12 +10,29 @@ export const Light: React.FC<LightProps> = ({ id }) => {
     };
   }, []);
 
-  const lightPosition = useControls(`Point light ${id}`, options);
+  const { firstLightPosition, secoundLightPosition, pointLight_2 } =
+    useControls("Lights", {
+      pointLight_1: true,
+      pointLight_2: false,
+      pointLight: folder({
+        firstLightPosition: {
+          value: [10, 110, 150],
+          step: 1,
+          render: (get) => get("pointLight_1"),
+        },
+      }),
+      secoundLightPosition: {
+        value: [10, 110, 150],
+        render: (get) => get("pointLight_2"),
+      },
+    });
 
   return (
-    <pointLight
-      intensity={100000}
-      position={[lightPosition.x, lightPosition.y, lightPosition.z]}
-    />
+    <>
+      <pointLight intensity={100000} position={firstLightPosition} />
+      {pointLight_2 && (
+        <pointLight intensity={100000} position={secoundLightPosition} />
+      )}
+    </>
   );
 };

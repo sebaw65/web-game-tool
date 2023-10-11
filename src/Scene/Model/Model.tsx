@@ -1,7 +1,8 @@
-import { useMemo, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useControls } from "leva";
 import { Group } from "three";
+// @ts-ignore
 import { type GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 
 type GLTFResult = GLTF & {
@@ -26,7 +27,7 @@ type GLTFResult = GLTF & {
   };
 };
 
-export const Model = () => {
+export const Model: React.FC = () => {
   const sceneRef = useRef<Group | null>(null);
 
   const { nodes, materials, animations } = useGLTF(
@@ -35,45 +36,44 @@ export const Model = () => {
 
   const { actions, names, mixer } = useAnimations(animations, sceneRef);
 
-  const options = useMemo(() => {
-    return {
+  const { position, rotation, scale } = useControls(
+    "Model",
+    {
       position: {
-        x: { value: 0, min: -100, max: 100, step: 0.01 },
-        y: { value: 0, min: -100, max: 100, step: 0.01 },
-        z: { value: 0, min: -100, max: 100, step: 0.01 },
+        value: [0, 0, 0],
+        step: 1,
       },
-      rotate: {
-        x: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
-        y: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
-        z: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
+      rotation: {
+        value: [0, 0, 0],
+        min: -Math.PI,
+        max: Math.PI,
+        step: 0.01,
       },
       scale: {
-        x: { value: 50, min: 0.001, max: 100, step: 0.001 },
-        y: { value: 50, min: 0.001, max: 100, step: 0.001 },
-        z: { value: 50, min: 0.001, max: 100, step: 0.001 },
+        value: [50, 50, 50],
+        lock: true,
       },
-    };
-  }, []);
+    },
+    { collapsed: true }
+  );
 
-  const modelPosition = useControls("Model position", options.position);
-  const modelRotation = useControls("Model rotation", options.rotate);
-  const modelScale = useControls("Model scale", options.scale);
-  const { animationName } = useControls("Animation", {
-    animationName: { options: names },
-  });
+  const { animationName } = useControls(
+    "Animations",
+    {
+      animationName: { options: names },
+    },
+    { collapsed: true }
+  );
 
   useEffect(() => {
+    if (!animationName) return;
+
     mixer.stopAllAction();
-    actions[animationName].fadeIn(0.6).play();
+    actions[animationName]!.fadeIn(0.6).play(); //cannot have a null value, because animationName is derived from the model's animationName names
   }, [animationName, actions]);
 
   return (
-    <group
-      ref={sceneRef}
-      position={[modelPosition.x, modelPosition.y, modelPosition.z]}
-      rotation={[modelRotation.x, modelRotation.y, modelRotation.z]}
-      scale={[modelScale.x, modelScale.y, modelScale.z]}
-    >
+    <group ref={sceneRef} position={position} rotation={rotation} scale={scale}>
       <group name="Scene">
         <group name="Scene_Root" scale={0.01}>
           <skinnedMesh

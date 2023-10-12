@@ -24,7 +24,7 @@ export const Lights: React.FC = () => {
         pLight2: {
           value: false,
           label: "On/Off",
-          render: (get) => console.log(get()),
+          render: (get) => get("Light_options.Point_light"),
         },
       }),
       Ambient_light: { value: false, label: "Ambient Light" },

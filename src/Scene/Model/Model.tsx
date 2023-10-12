@@ -42,27 +42,30 @@ export const Model: React.FC = () => {
       position: {
         value: [0, 0, 0],
         step: 1,
+        label: "Position",
       },
       rotation: {
         value: [0, 0, 0],
         min: -Math.PI,
         max: Math.PI,
         step: 0.01,
+        label: "Rotation",
       },
       scale: {
         value: [50, 50, 50],
         lock: true,
+        label: "Scale",
       },
     },
-    { collapsed: true }
+    { collapsed: true, order: 99 }
   );
 
   const { animationName } = useControls(
     "Animations",
     {
-      animationName: { options: names },
+      animationName: { options: names, label: "Avaible animations" },
     },
-    { collapsed: true }
+    { collapsed: true, order: 100 }
   );
 
   useEffect(() => {

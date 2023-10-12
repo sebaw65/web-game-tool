@@ -14,52 +14,42 @@ export const PointLights: React.FC<PointLightsProps> = ({ enableSecound }) => {
   const {
     intensivity_1,
     position_1,
-    rotation_1,
     helper_1,
     intensivity_2,
     position_2,
-    rotation_2,
     helper_2,
   } = useControls(
-    "Point Lights",
+    "Point Lights options",
     {
-      first: folder({
-        intensivity_1: { value: 5000, step: 10, label: "Intensivity" },
+      "First Light": folder({
+        intensivity_1: { value: 0, step: 1, label: "Intensity" },
         position_1: {
-          value: [30, 65, 50],
-          step: 1,
-          label: "position",
-        },
-        rotation_1: {
           value: [0, 0, 0],
-          min: -Math.PI,
-          max: Math.PI,
-          step: 0.01,
-          label: "rotation",
+          step: 1,
+          label: "Position",
         },
         helper_1: { value: false, label: "Show helper" },
       }),
-      secound: folder(
+      "Secound Light": folder(
         {
-          intensivity_2: { value: 5000, step: 10, label: "Intensivity" },
+          intensivity_2: { value: 0, step: 1, label: "Intensivity" },
           position_2: {
-            value: [-30, 65, 50],
+            value: [0, 0, 0],
             step: 1,
             label: "position",
           },
-          rotation_2: {
-            value: [0, 0, 0],
-            min: -Math.PI,
-            max: Math.PI,
-            step: 0.01,
-            label: "rotation",
-          },
           helper_2: { value: false, label: "Show helper" },
         },
-        { render: (get) => get("Point_2"), collapsed: true }
+        {
+          collapsed: true,
+          render: (get) => get("Light_options.Secound_Point_Light.pLight2"),
+        }
       ),
     },
-    { render: (get) => get("Point_1") }
+    {
+      collapsed: true,
+      order: 2,
+    }
   );
 
   return (
@@ -68,7 +58,6 @@ export const PointLights: React.FC<PointLightsProps> = ({ enableSecound }) => {
         ref={pointLight1Ref}
         intensity={intensivity_1}
         position={position_1}
-        rotation={rotation_1}
       />
       {helper_1 && <Helper pointLight={pointLight1Ref} />}
 
@@ -78,7 +67,6 @@ export const PointLights: React.FC<PointLightsProps> = ({ enableSecound }) => {
             ref={pointLight2Ref}
             intensity={intensivity_2}
             position={position_2}
-            rotation={rotation_2}
           />
           {helper_2 && <Helper pointLight={pointLight2Ref} />}
         </>

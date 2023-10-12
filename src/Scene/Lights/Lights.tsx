@@ -36,7 +36,7 @@ export const Lights: React.FC = () => {
       {Ambient_light && <AmbientLight />}
       {Directional_light && <DirectionalLight />}
       {Hemisphere_light && <HemisphereLight />}
-      {/* RectAreaLight    */}
+      {/* RectAreaLightx */}
       {/* SpotLight     */}
     </>
   );

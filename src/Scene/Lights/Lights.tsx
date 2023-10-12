@@ -4,6 +4,8 @@ import { PointLights } from "./PointLights";
 import { AmbientLight } from "./AmbientLight";
 import { DirectionalLight } from "./DirectionalLight";
 import { HemisphereLight } from "./HemisphereLight";
+import { RectAreaLight } from "./RectAreaLight";
+import { SpotLight } from "./SpotLight";
 
 export const Lights: React.FC = () => {
   const {
@@ -12,6 +14,8 @@ export const Lights: React.FC = () => {
     Ambient_light,
     Directional_light,
     Hemisphere_light,
+    RectArea_light,
+    Spot_light,
   } = useControls(
     "Light_options",
     {
@@ -20,12 +24,14 @@ export const Lights: React.FC = () => {
         pLight2: {
           value: false,
           label: "On/Off",
-          render: (get) => get("Light_options.Point_light"),
+          render: (get) => console.log(get()),
         },
       }),
       Ambient_light: { value: false, label: "Ambient Light" },
       Directional_light: { value: false, label: "Directional Light" },
       Hemisphere_light: { value: true, label: "Hemisphere Light" },
+      RectArea_light: { value: false, label: "ReactArea Light" },
+      Spot_light: { value: false, label: "Spot Light" },
     },
     { order: 1 }
   );
@@ -36,8 +42,8 @@ export const Lights: React.FC = () => {
       {Ambient_light && <AmbientLight />}
       {Directional_light && <DirectionalLight />}
       {Hemisphere_light && <HemisphereLight />}
-      {/* RectAreaLight */}
-      {/* SpotLight     */}
+      {RectArea_light && <RectAreaLight />}
+      {Spot_light && <SpotLight />}
     </>
   );
 };

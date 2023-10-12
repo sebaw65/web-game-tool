@@ -7,7 +7,6 @@ interface PointLightsProps {
 }
 
 export const PointLights: React.FC<PointLightsProps> = ({ enableSecound }) => {
-  //! hacks
   const pointLight1Ref = useRef<THREE.PointLight>(null!);
   const pointLight2Ref = useRef<THREE.PointLight>(null!);
 
@@ -59,7 +58,7 @@ export const PointLights: React.FC<PointLightsProps> = ({ enableSecound }) => {
         intensity={intensivity_1}
         position={position_1}
       />
-      {helper_1 && <Helper pointLight={pointLight1Ref} />}
+      {helper_1 && <Helper light={pointLight1Ref} />}
 
       {enableSecound && (
         <>
@@ -68,7 +67,7 @@ export const PointLights: React.FC<PointLightsProps> = ({ enableSecound }) => {
             intensity={intensivity_2}
             position={position_2}
           />
-          {helper_2 && <Helper pointLight={pointLight2Ref} />}
+          {helper_2 && <Helper light={pointLight2Ref} />}
         </>
       )}
     </>

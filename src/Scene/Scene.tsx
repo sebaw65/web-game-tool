@@ -1,18 +1,29 @@
-import React, { Suspense } from "react";
+import React, { useState, Suspense, useRef } from "react";
 import { StyledCanvas } from "./styled";
-import { OrbitControls } from "@react-three/drei";
+import { CameraControls } from "@react-three/drei";
 import { Model } from "./Model";
 import { Lights } from "./Lights";
+import { SceneEffects } from "./SceneEffects";
+import { Animation } from "./Animations";
 
 export const Scene: React.FC = () => {
-  return (
-    <StyledCanvas camera={{ position: [10, 70, 200] }}>
-      <OrbitControls />
-      <Lights />
+  const [animations, setAnimations] = useState<THREE.AnimationClip[] | null>(
+    null
+  );
 
+  const sceneRef = useRef<THREE.Group>(null);
+  const cameraControlsRef = useRef<CameraControls>(null);
+
+  return (
+    <StyledCanvas>
+      <CameraControls ref={cameraControlsRef} makeDefault />
+      <Lights />
       <Suspense fallback={null}>
-        <Model />
+        <Model ref={sceneRef} setAnimations={setAnimations} />
       </Suspense>
+
+      <SceneEffects scene={sceneRef} cameraControls={cameraControlsRef} />
+      {animations && <Animation animations={animations} sceneRef={sceneRef} />}
     </StyledCanvas>
   );
 };

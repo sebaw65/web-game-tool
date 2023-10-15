@@ -32,9 +32,7 @@ interface ModelProps {
 
 export const Model = forwardRef<THREE.Group, ModelProps>(
   ({ setAnimations }, sceneRef) => {
-    const { animations, scene } = useGLTF(
-      "/src/assets/model.glb"
-    ) as GLTFResult;
+    const { animations, scene } = useGLTF("/model.glb") as GLTFResult;
 
     useEffect(() => {
       setAnimations(animations);

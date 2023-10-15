@@ -1,4 +1,4 @@
-# All models come from mixamo
+# All models are from mixamo
 
 # React + TypeScript + Vite
 

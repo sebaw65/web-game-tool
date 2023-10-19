@@ -4,8 +4,8 @@ import { CameraControls } from "@react-three/drei";
 import { useFitCamera } from "./useFitCamera";
 
 interface SceneEffectsProps {
-  scene: React.RefObject<THREE.Group>;
-  cameraControls: React.RefObject<CameraControls>;
+  scene: THREE.Group;
+  cameraControls: CameraControls;
 }
 
 export const SceneEffects: React.FC<SceneEffectsProps> = ({

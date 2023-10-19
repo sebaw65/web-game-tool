@@ -1,4 +1,4 @@
-import { useEffect, forwardRef } from "react";
+import { useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useControls } from "leva";
 // @ts-ignore
@@ -28,49 +28,54 @@ type GLTFResult = GLTF & {
 
 interface ModelProps {
   setAnimations: (animations: THREE.AnimationClip[]) => void;
+  setScene: (scene: THREE.Group) => void;
 }
 
-export const Model = forwardRef<THREE.Group, ModelProps>(
-  ({ setAnimations }, sceneRef) => {
-    const { animations, scene } = useGLTF("/model.glb") as GLTFResult;
+export const Model: React.FC<ModelProps> = ({ setAnimations, setScene }) => {
+  const { animations, scene } = useGLTF("/model.glb") as GLTFResult;
 
-    useEffect(() => {
-      setAnimations(animations);
-    }, [animations]);
+  useEffect(() => {
+    if (!animations) return;
 
-    const { position, rotation, scale } = useControls(
-      "Model",
-      {
-        position: {
-          value: [0, 0, 0],
-          step: 1,
-          label: "Position",
-        },
-        rotation: {
-          value: [0, 0, 0],
-          min: -Math.PI,
-          max: Math.PI,
-          step: 0.01,
-          label: "Rotation",
-        },
-        scale: {
-          value: [50, 50, 50],
-          lock: true,
-          label: "Scale",
-        },
+    setAnimations(animations);
+  }, [animations]);
+
+  useEffect(() => {
+    if (!scene) return;
+
+    setScene(scene);
+  }, [scene]);
+
+  const { position, rotation, scale } = useControls(
+    "Model",
+    {
+      position: {
+        value: [0, 0, 0],
+        step: 1,
+        label: "Position",
       },
-      { collapsed: true, order: 99 }
-    );
+      rotation: {
+        value: [0, 0, 0],
+        min: -Math.PI,
+        max: Math.PI,
+        step: 0.01,
+        label: "Rotation",
+      },
+      scale: {
+        value: [50, 50, 50],
+        lock: true,
+        label: "Scale",
+      },
+    },
+    { collapsed: true, order: 99 }
+  );
 
-    return (
-      <group
-        ref={sceneRef}
-        position={position}
-        rotation={rotation}
-        scale={scale}
-      >
-        <primitive object={scene} />
-      </group>
-    );
-  }
-);
+  return (
+    <primitive
+      object={scene}
+      position={position}
+      rotation={rotation}
+      scale={scale}
+    />
+  );
+};

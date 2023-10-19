@@ -10,8 +10,8 @@ export const Scene: React.FC = () => {
   const [animations, setAnimations] = useState<THREE.AnimationClip[] | null>(
     null
   );
+  const [scene, setScene] = useState<THREE.Group | null>(null);
 
-  const sceneRef = useRef<THREE.Group>(null);
   const cameraControlsRef = useRef<CameraControls>(null);
 
   return (
@@ -19,11 +19,18 @@ export const Scene: React.FC = () => {
       <CameraControls ref={cameraControlsRef} makeDefault />
       <Lights />
       <Suspense fallback={null}>
-        <Model ref={sceneRef} setAnimations={setAnimations} />
+        <Model setAnimations={setAnimations} setScene={setScene} />
       </Suspense>
 
-      <SceneEffects scene={sceneRef} cameraControls={cameraControlsRef} />
-      {animations && <Animation animations={animations} sceneRef={sceneRef} />}
+      {scene && cameraControlsRef.current && (
+        <SceneEffects
+          scene={scene}
+          cameraControls={cameraControlsRef.current}
+        />
+      )}
+      {animations && scene && (
+        <Animation animations={animations} scene={scene} />
+      )}
     </StyledCanvas>
   );
 };

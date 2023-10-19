@@ -2,19 +2,19 @@ import { CameraControls } from "@react-three/drei";
 import { useLayoutEffect } from "react";
 
 export const useFitCamera = (
-  scene: React.RefObject<THREE.Group>,
-  cameraControls: React.RefObject<CameraControls>
+  scene: THREE.Group,
+  cameraControls: CameraControls
 ) => {
   const fitToMesh = () => {
-    if (!scene.current) return;
-    if (!cameraControls.current) return;
+    if (!scene) return;
+    if (!cameraControls) return;
 
-    cameraControls.current.fitToSphere(scene.current, true);
+    cameraControls.fitToSphere(scene, true);
   };
 
   useLayoutEffect(() => {
     fitToMesh();
-  }, [cameraControls.current]);
+  }, [cameraControls]);
 
   return { fitToMesh };
 };

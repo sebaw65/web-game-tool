@@ -4,16 +4,13 @@ import React, { useEffect } from "react";
 
 interface AnimationProps {
   animations: THREE.AnimationClip[];
-  sceneRef: React.RefObject<THREE.Group>;
+  scene: THREE.Group;
 }
 
-export const Animation: React.FC<AnimationProps> = ({
-  animations,
-  sceneRef,
-}) => {
-  if (!sceneRef) return;
+export const Animation: React.FC<AnimationProps> = ({ animations, scene }) => {
+  if (!scene) return;
 
-  const { actions, names, mixer } = useAnimations(animations, sceneRef);
+  const { actions, names, mixer } = useAnimations(animations, scene);
 
   const { animationName } = useControls(
     "Animations",

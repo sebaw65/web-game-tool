@@ -1,4 +1,4 @@
-import { CameraControls } from "@react-three/drei";
+import { type CameraControls } from "@react-three/drei";
 import { useLayoutEffect } from "react";
 
 export const useFitCamera = (
@@ -9,7 +9,7 @@ export const useFitCamera = (
     if (!scene) return;
     if (!cameraControls) return;
 
-    cameraControls.fitToSphere(scene, true);
+    void cameraControls.fitToSphere(scene, true);
   };
 
   useLayoutEffect(() => {

@@ -1,6 +1,6 @@
 import React, { useState, Suspense, useRef } from "react";
-import { StyledCanvas } from "./styled";
 import { CameraControls } from "@react-three/drei";
+import { StyledCanvas } from "./styled";
 import { Model } from "./Model";
 import { Lights } from "./Lights";
 import { SceneEffects } from "./SceneEffects";

@@ -1,6 +1,7 @@
+import type React from "react";
+import { useEffect } from "react";
 import { useAnimations } from "@react-three/drei";
 import { useControls } from "leva";
-import React, { useEffect } from "react";
 
 interface AnimationProps {
   animations: THREE.AnimationClip[];

@@ -1,8 +1,7 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useControls } from "leva";
-// @ts-ignore
-import { type GLTF } from "three/examples/jsm/loaders/GLTFLoader";
+import { type GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -38,13 +37,13 @@ export const Model: React.FC<ModelProps> = ({ setAnimations, setScene }) => {
     if (!animations) return;
 
     setAnimations(animations);
-  }, [animations]);
+  }, [setAnimations, animations]);
 
   useEffect(() => {
     if (!scene) return;
 
     setScene(scene);
-  }, [scene]);
+  }, [setScene, scene]);
 
   const { position, rotation, scale } = useControls(
     "Model",

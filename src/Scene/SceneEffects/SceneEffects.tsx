@@ -1,6 +1,6 @@
 import { button, useControls } from "leva";
-import React from "react";
-import { CameraControls } from "@react-three/drei";
+import type React from "react";
+import { type CameraControls } from "@react-three/drei";
 import { useFitCamera } from "./useFitCamera";
 
 interface SceneEffectsProps {
@@ -15,7 +15,9 @@ export const SceneEffects: React.FC<SceneEffectsProps> = ({
   const { fitToMesh } = useFitCamera(scene, cameraControls);
 
   useControls({
-    "Fit to mesh": button(() => void fitToMesh()),
+    "Fit to mesh": button(() => {
+      fitToMesh();
+    }),
   });
 
   return null;

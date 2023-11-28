@@ -1,5 +1,5 @@
+import type React from "react";
 import { useHelper } from "@react-three/drei";
-import React from "react";
 import { DirectionalLightHelper } from "three";
 
 interface HelperProps {

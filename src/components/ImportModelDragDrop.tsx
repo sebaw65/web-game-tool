@@ -25,26 +25,62 @@ export const ImportModelDragDrop = () => {
 
       setFile(loadedFile);
     },
+    noClick: Boolean(file),
   });
 
-  console.log(file);
+  const discardSelectedFile = () => setFile(null);
 
   return (
     <div className="p-14 w-full h-full">
       <div
         {...getRootProps({
-          className: `flex w-full h-full items-center justify-center border-4 border-dashed rounded-4xl hover:cursor-pointer ${
+          className: `flex w-full h-full justify-center border-4 border-dashed rounded-4xl hover:cursor-pointer ${
             isDragActive ? "bg-green-100" : ""
           }`,
         })}
       >
         <input {...getInputProps()} />
-        <p>
-          {isDragActive
-            ? "Drop the files here..."
-            : "Drag 'n' drop files here, or click to select files"}
-        </p>
+        <div className="flex flex-col w-full place-content-center text-center">
+          <RenderFieldContent
+            file={file}
+            isDragActive={isDragActive}
+            setFile={discardSelectedFile}
+          />
+        </div>
       </div>
     </div>
   );
+};
+
+const RenderFieldContent: React.FC<{
+  file: File | null;
+  isDragActive: Boolean;
+  setFile: () => void;
+}> = ({ file, isDragActive, setFile }) => {
+  if (file) {
+    return (
+      <>
+        <p className="text-xl text-center">
+          Selected file <b>{file.name}</b>
+        </p>
+        <div className="flex justify-between mx-64">
+          <button
+            className="bg-red-500 px-6 py-2 rounded-xl text-lg text-white"
+            onClick={setFile}
+          >
+            Discard
+          </button>
+          <button className="bg-blue-500 px-6 py-2 rounded-xl text-lg text-white">
+            Load
+          </button>
+        </div>
+      </>
+    );
+  }
+
+  if (isDragActive) {
+    return <p>Drop the files here...</p>;
+  }
+
+  return <p>Drag 'n' drop files here, or click to select files</p>;
 };

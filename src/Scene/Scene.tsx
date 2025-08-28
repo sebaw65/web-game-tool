@@ -1,10 +1,11 @@
 import React, { useState, Suspense, useRef } from "react";
 import { CameraControls } from "@react-three/drei";
-import { StyledCanvas } from "./styled";
 import { Model } from "./Model";
 import { Lights } from "./Lights";
 import { SceneEffects } from "./SceneEffects";
 import { Animation } from "./Animations";
+import { Canvas } from "@react-three/fiber";
+import * as THREE from "three";
 
 export const Scene: React.FC = () => {
   const [animations, setAnimations] = useState<THREE.AnimationClip[] | null>(
@@ -15,7 +16,7 @@ export const Scene: React.FC = () => {
   const cameraControlsRef = useRef<CameraControls>(null);
 
   return (
-    <StyledCanvas>
+    <Canvas className="w-full h-full border-2 ">
       <CameraControls ref={cameraControlsRef} makeDefault />
       <Lights />
       <Suspense fallback={null}>
@@ -31,6 +32,6 @@ export const Scene: React.FC = () => {
       {animations && scene && (
         <Animation animations={animations} scene={scene} />
       )}
-    </StyledCanvas>
+    </Canvas>
   );
 };

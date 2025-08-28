@@ -1,27 +1,30 @@
 import React, { useRef } from "react";
 import { useControls, folder } from "leva";
 import { Helper } from "./Helper";
+import * as THREE from "three";
 
 interface PointLightsProps {
-  enableSecound?: boolean;
+  enableSecond?: boolean;
 }
 
-export const PointLights: React.FC<PointLightsProps> = ({ enableSecound }) => {
+export const PointLights: React.FC<PointLightsProps> = ({
+  enableSecond: enableSecond,
+}) => {
   const pointLight1Ref = useRef<THREE.PointLight>(null!);
   const pointLight2Ref = useRef<THREE.PointLight>(null!);
 
   const {
-    intensivity_1,
+    intensity_1,
     position_1,
     helper_1,
-    intensivity_2,
+    intensity_2,
     position_2,
     helper_2,
   } = useControls(
     "Point Lights options",
     {
       "First Light": folder({
-        intensivity_1: { value: 0, step: 1, label: "Intensity" },
+        intensity_1: { value: 0, step: 1, label: "Intensity" },
         position_1: {
           value: [0, 0, 0],
           step: 1,
@@ -29,9 +32,9 @@ export const PointLights: React.FC<PointLightsProps> = ({ enableSecound }) => {
         },
         helper_1: { value: false, label: "Show helper" },
       }),
-      "Secound Light": folder(
+      "Second Light": folder(
         {
-          intensivity_2: { value: 0, step: 1, label: "Intensivity" },
+          intensity_2: { value: 0, step: 1, label: "Intensity" },
           position_2: {
             value: [0, 0, 0],
             step: 1,
@@ -41,7 +44,7 @@ export const PointLights: React.FC<PointLightsProps> = ({ enableSecound }) => {
         },
         {
           collapsed: true,
-          render: (get) => get("Light_options.Secound_Point_Light.pLight2"),
+          render: (get) => get("Light_options.Second_Point_Light.pLight2"),
         }
       ),
     },
@@ -55,16 +58,16 @@ export const PointLights: React.FC<PointLightsProps> = ({ enableSecound }) => {
     <>
       <pointLight
         ref={pointLight1Ref}
-        intensity={intensivity_1}
+        intensity={intensity_1}
         position={position_1}
       />
       {helper_1 && <Helper light={pointLight1Ref} />}
 
-      {enableSecound && (
+      {enableSecond && (
         <>
           <pointLight
             ref={pointLight2Ref}
-            intensity={intensivity_2}
+            intensity={intensity_2}
             position={position_2}
           />
           {helper_2 && <Helper light={pointLight2Ref} />}

@@ -20,7 +20,7 @@ export const Lights: React.FC = () => {
     "Light_options",
     {
       Point_light: { value: false, label: "Point Light" },
-      Secound_Point_Light: folder({
+      Second_Point_Light: folder({
         pLight2: {
           value: false,
           label: "On/Off",
@@ -38,7 +38,7 @@ export const Lights: React.FC = () => {
 
   return (
     <>
-      {Point_light && <PointLights enableSecound={pLight2} />}
+      {Point_light && <PointLights enableSecond={pLight2} />}
       {Ambient_light && <AmbientLight />}
       {Directional_light && <DirectionalLight />}
       {Hemisphere_light && <HemisphereLight />}

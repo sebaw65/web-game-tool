@@ -1,4 +1,4 @@
-import React, { useState, Suspense, useRef } from "react";
+import { useState, Suspense, useRef } from "react";
 import { CameraControls } from "@react-three/drei";
 import { Model } from "./Model";
 import { Lights } from "./Lights";
@@ -7,7 +7,9 @@ import { Animation } from "./Animations";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 
-export const Scene: React.FC = () => {
+export const Scene: React.FC<{ loadedFileUrl: string }> = ({
+  loadedFileUrl,
+}) => {
   const [animations, setAnimations] = useState<THREE.AnimationClip[] | null>(
     null
   );
@@ -20,7 +22,11 @@ export const Scene: React.FC = () => {
       <CameraControls ref={cameraControlsRef} makeDefault />
       <Lights />
       <Suspense fallback={null}>
-        <Model setAnimations={setAnimations} setScene={setScene} />
+        <Model
+          setAnimations={setAnimations}
+          setScene={setScene}
+          file={loadedFileUrl}
+        />
       </Suspense>
 
       {scene && cameraControlsRef.current && (

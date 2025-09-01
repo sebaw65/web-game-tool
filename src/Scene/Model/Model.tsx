@@ -1,37 +1,21 @@
 import React, { useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useControls } from "leva";
-import { type GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
-
-type GLTFResult = GLTF & {
-  nodes: {
-    CL: THREE.SkinnedMesh;
-    FA_EA_1: THREE.SkinnedMesh;
-    FA_Skin_1: THREE.SkinnedMesh;
-    GL_1: THREE.SkinnedMesh;
-    HR_1: THREE.SkinnedMesh;
-    PA_1: THREE.SkinnedMesh;
-    SH_1: THREE.SkinnedMesh;
-    Bip01: THREE.Bone;
-    FA_Skin: THREE.Bone;
-    CL_1: THREE.Bone;
-    GL: THREE.Bone;
-    SH: THREE.Bone;
-    PA: THREE.Bone;
-    FA_EA: THREE.Bone;
-  };
-  materials: {
-    skin: THREE.MeshStandardMaterial;
-  };
-};
+import * as THREE from "three";
 
 interface ModelProps {
   setAnimations: (animations: THREE.AnimationClip[]) => void;
   setScene: (scene: THREE.Group) => void;
+  file: string;
 }
 
-export const Model: React.FC<ModelProps> = ({ setAnimations, setScene }) => {
-  const { animations, scene } = useGLTF("/model.glb") as GLTFResult;
+export const Model: React.FC<ModelProps> = ({
+  setAnimations,
+  setScene,
+  file,
+}) => {
+  console.log(typeof file);
+  const { scene, animations } = useGLTF(file, true);
 
   useEffect(() => {
     if (!animations) return;

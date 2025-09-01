@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { Scene } from "./Scene";
 import { Leva } from "leva";
-import { ImportModelDragDrop } from "./components/ImportModelDragDrop";
+import { LoadFileDragDrop } from "./components/LoadFileDragDrop";
 
 const App = () => {
-  const [model, setModel] = useState(null);
+  const [loadedModelUrl, setLoadedModelUrl] = useState<string | null>(null);
 
-  const onFileLoad = (loadedModel) => {
-    setModel(loadedModel);
+  const onFileLoad = (loadedModel: string) => {
+    setLoadedModelUrl(loadedModel);
   };
 
   return (
     <div className="flex w-full h-screen overflow-hidden items-start justify-center">
-      {model ? <Scene /> : <ImportModelDragDrop />}
+      {loadedModelUrl ? (
+        <Scene loadedFileUrl={loadedModelUrl} />
+      ) : (
+        <LoadFileDragDrop onModelLoad={onFileLoad} />
+      )}
       <Leva />
     </div>
   );

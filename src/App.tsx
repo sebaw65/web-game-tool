@@ -1,22 +1,15 @@
-import { useState } from "react";
 import { Scene } from "./Scene";
 import { Leva } from "leva";
 import { LoadFileDragDrop } from "./components/LoadFileDragDrop";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
 
 const App = () => {
-  const [loadedModelUrl, setLoadedModelUrl] = useState<string | null>(null);
-
-  const onFileLoad = (loadedModel: string) => {
-    setLoadedModelUrl(loadedModel);
-  };
+  const models = useSelector((state: RootState) => state.models.models);
 
   return (
     <div className="flex w-full h-screen overflow-hidden items-start justify-center">
-      {loadedModelUrl ? (
-        <Scene loadedFileUrl={loadedModelUrl} />
-      ) : (
-        <LoadFileDragDrop onModelLoad={onFileLoad} />
-      )}
+      {models.length ? <Scene /> : <LoadFileDragDrop />}
       <Leva />
     </div>
   );

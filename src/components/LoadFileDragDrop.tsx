@@ -1,9 +1,9 @@
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { useDispatch } from "react-redux";
+import { addModel } from "../store/slices/modelsSlice";
 
-export const LoadFileDragDrop: FC<{
-  onModelLoad: (file: string) => void;
-}> = ({ onModelLoad }) => {
+export const LoadFileDragDrop = () => {
   const [file, setFile] = useState<File | null>(null);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -30,8 +30,6 @@ export const LoadFileDragDrop: FC<{
     noClick: Boolean(file),
   });
 
-  const discardSelectedFile = () => setFile(null);
-
   return (
     <div className="p-14 w-full h-full">
       <div
@@ -43,12 +41,7 @@ export const LoadFileDragDrop: FC<{
       >
         <input {...getInputProps()} />
         <div className="flex flex-col w-full place-content-center text-center">
-          <RenderFieldContent
-            file={file}
-            isDragActive={isDragActive}
-            onLoad={onModelLoad}
-            onDiscard={discardSelectedFile}
-          />
+          <RenderFieldContent file={file} isDragActive={isDragActive} />
         </div>
       </div>
     </div>
@@ -58,46 +51,26 @@ export const LoadFileDragDrop: FC<{
 const RenderFieldContent: React.FC<{
   file: File | null;
   isDragActive: boolean;
-  onLoad: (file: string) => void;
-  onDiscard: () => void;
-}> = ({ file, isDragActive, onLoad, onDiscard }) => {
-  const [url, setUrl] = useState<string | null>(null);
+}> = ({ file, isDragActive }) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!file) return;
     const objectUrl = URL.createObjectURL(file);
-    setUrl(objectUrl);
 
-    // TODO Cleanup musi być po załadowaniu modelu
-    // return () => {
-    //   URL.revokeObjectURL(objectUrl);
-    // };
-  }, [file]);
-
-  console.log(url);
-  if (file && url) {
-    return (
-      <>
-        <p className="text-xl text-center">
-          Selected file <b>{file.name}</b>
-        </p>
-        <div className="flex justify-between mx-64">
-          <button
-            className="bg-red-500 px-6 py-2 rounded-xl text-lg text-white"
-            onClick={onDiscard}
-          >
-            Discard
-          </button>
-          <button
-            className="bg-blue-500 px-6 py-2 rounded-xl text-lg text-white"
-            onClick={() => onLoad(url)}
-          >
-            Load
-          </button>
-        </div>
-      </>
+    dispatch(
+      addModel({
+        id: crypto.randomUUID(),
+        name: file.name,
+        src: objectUrl,
+        position: [0, 0, 0],
+        rotation: [0, 0, 0],
+        scale: 1,
+        isRendered: false,
+        isVisible: false,
+      })
     );
-  }
+  }, [file]);
 
   if (isDragActive) {
     return <p>Drop the files here...</p>;

@@ -7,9 +7,7 @@ import { Animation } from "./Animations";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 
-export const Scene: React.FC<{ loadedFileUrl: string }> = ({
-  loadedFileUrl,
-}) => {
+export const Scene = () => {
   const [animations, setAnimations] = useState<THREE.AnimationClip[] | null>(
     null
   );
@@ -22,11 +20,7 @@ export const Scene: React.FC<{ loadedFileUrl: string }> = ({
       <CameraControls ref={cameraControlsRef} makeDefault />
       <Lights />
       <Suspense fallback={null}>
-        <Model
-          setAnimations={setAnimations}
-          setScene={setScene}
-          file={loadedFileUrl}
-        />
+        <Model setAnimations={setAnimations} setScene={setScene} />
       </Suspense>
 
       {scene && cameraControlsRef.current && (

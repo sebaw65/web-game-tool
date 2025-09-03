@@ -1,5 +1,6 @@
 import { type CameraControls } from "@react-three/drei";
 import { useLayoutEffect } from "react";
+import * as THREE from "three";
 
 export const useFitCamera = (
   scene: THREE.Group,

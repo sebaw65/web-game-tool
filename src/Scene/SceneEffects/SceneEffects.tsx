@@ -2,6 +2,7 @@ import { button, useControls } from "leva";
 import type React from "react";
 import { type CameraControls } from "@react-three/drei";
 import { useFitCamera } from "./useFitCamera";
+import * as THREE from "three";
 
 interface SceneEffectsProps {
   scene: THREE.Group;

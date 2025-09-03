@@ -1,5 +1,6 @@
 import type React from "react";
 import { useHelper } from "@react-three/drei";
+import * as THREE from "three";
 import { PointLightHelper } from "three";
 
 interface HelperProps {

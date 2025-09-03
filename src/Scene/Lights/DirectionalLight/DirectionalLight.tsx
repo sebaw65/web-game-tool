@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useControls } from "leva";
 import { Helper } from "./Helper";
+import * as THREE from "three";
 
 export const DirectionalLight: React.FC = () => {
   const lightRef = useRef<THREE.DirectionalLight>(null!);

@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Helper } from "./Helper";
 import { useControls } from "leva";
+import * as THREE from "three";
 
 export const RectAreaLight: React.FC = () => {
   const lightRef = useRef<THREE.RectAreaLight>(null!);

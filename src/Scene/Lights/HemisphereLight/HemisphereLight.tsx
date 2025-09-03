@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useControls } from "leva";
+import * as THREE from "three";
 import { Helper } from "./Helper";
 
 export const HemisphereLight: React.FC = () => {

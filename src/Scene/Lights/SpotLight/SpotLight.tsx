@@ -1,6 +1,7 @@
 import React, { useRef, useMemo } from "react";
 import { Helper } from "./Helper";
 import { useControls } from "leva";
+import * as THREE from "three";
 
 export const SpotLight: React.FC = () => {
   const lightRef = useRef<THREE.SpotLight>(null!);

@@ -25,7 +25,9 @@ export const SceneContent = () => {
       {/* Lights */}
       <Lights />
       {/* Animations */}
-      {animations && <AnimationsDebugControls animations={animations} />}
+      {animations?.length && (
+        <AnimationsDebugControls animations={animations} />
+      )}
     </>
   );
 };

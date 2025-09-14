@@ -1,13 +1,17 @@
-import { Scene } from "./Scene";
-import { GUI } from "./Scene/GUI";
-import { SiteWrapper } from "./styled";
+import { Leva } from "leva";
+import { LoadFileDragDrop } from "./ui/LoadFileDragDrop";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
+import { Scene } from "@/ui/scene/Scene";
 
 const App = () => {
+  const models = useSelector((state: RootState) => state.models.models);
+
   return (
-    <SiteWrapper>
-      <Scene />
-      <GUI />
-    </SiteWrapper>
+    <div className="flex w-full h-screen overflow-hidden items-start justify-center">
+      {models.length ? <Scene /> : <LoadFileDragDrop />}
+      <Leva />
+    </div>
   );
 };
 

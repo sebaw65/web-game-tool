@@ -1,32 +1,24 @@
 import React, { useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useControls } from "leva";
-import * as THREE from "three";
+import { AnimationClip } from "three";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 
 interface ModelProps {
-  setAnimations: (animations: THREE.AnimationClip[]) => void;
-  setScene: (scene: THREE.Group) => void;
+  setAnimations: (animations: AnimationClip[]) => void;
 }
 
-export const Model: React.FC<ModelProps> = ({ setAnimations, setScene }) => {
+export const Model: React.FC<ModelProps> = ({ setAnimations }) => {
   const models = useSelector((state: RootState) => state.models.models);
-  console.log(models);
-
   const { scene, animations } = useGLTF(models[0].src, true);
 
+  console.log(animations);
   useEffect(() => {
     if (!animations) return;
 
     setAnimations(animations);
   }, [setAnimations, animations]);
-
-  useEffect(() => {
-    if (!scene) return;
-
-    setScene(scene);
-  }, [setScene, scene]);
 
   const { position, rotation, scale } = useControls(
     "Model",

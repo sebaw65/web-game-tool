@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import { useControls } from "leva";
-import { Helper } from "./Helper";
 import * as THREE from "three";
+import { Helper } from "./Helper";
+import { LightType } from "@/model/lightType";
 
 export const DirectionalLight: React.FC = () => {
   const lightRef = useRef<THREE.DirectionalLight>(null!);
@@ -28,7 +29,7 @@ export const DirectionalLight: React.FC = () => {
         color={color}
         intensity={intensity}
       />
-      {helper && <Helper light={lightRef} />}
+      {helper && <Helper light={lightRef} type={LightType.DIRECTIONAL} />}
     </>
   );
 };

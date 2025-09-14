@@ -1,10 +1,11 @@
 import React, { useRef, useMemo } from "react";
 import { Helper } from "./Helper";
 import { useControls } from "leva";
-import * as THREE from "three";
+import { SpotLight as SpotLightType } from "three";
+import { LightType } from "@/model/lightType";
 
 export const SpotLight: React.FC = () => {
-  const lightRef = useRef<THREE.SpotLight>(null!);
+  const lightRef = useRef<SpotLightType>(null!);
 
   const { color, angle, decay, intensity, penumbra, position, helper } =
     useControls(
@@ -49,7 +50,7 @@ export const SpotLight: React.FC = () => {
         decay={decay}
         position={position}
       />
-      {helper && <Helper light={lightRef} />}
+      {helper && <Helper light={lightRef} type={LightType.SPOT} />}
     </>
   );
 };

@@ -1,8 +1,8 @@
-import { Scene } from "./Scene";
 import { Leva } from "leva";
 import { LoadFileDragDrop } from "./components/LoadFileDragDrop";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
+import { Scene } from "@/ui/scene/Scene";
 
 const App = () => {
   const models = useSelector((state: RootState) => state.models.models);

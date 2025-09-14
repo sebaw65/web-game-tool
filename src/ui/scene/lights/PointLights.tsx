@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import { useControls, folder } from "leva";
+import { PointLight } from "three";
 import { Helper } from "./Helper";
-import * as THREE from "three";
+import { LightType } from "@/model/lightType";
 
 interface PointLightsProps {
   enableSecond?: boolean;
@@ -10,8 +11,8 @@ interface PointLightsProps {
 export const PointLights: React.FC<PointLightsProps> = ({
   enableSecond: enableSecond,
 }) => {
-  const pointLight1Ref = useRef<THREE.PointLight>(null!);
-  const pointLight2Ref = useRef<THREE.PointLight>(null!);
+  const pointLight1Ref = useRef<PointLight>(null!);
+  const pointLight2Ref = useRef<PointLight>(null!);
 
   const {
     intensity_1,
@@ -61,7 +62,7 @@ export const PointLights: React.FC<PointLightsProps> = ({
         intensity={intensity_1}
         position={position_1}
       />
-      {helper_1 && <Helper light={pointLight1Ref} />}
+      {helper_1 && <Helper light={pointLight1Ref} type={LightType.POINT} />}
 
       {enableSecond && (
         <>
@@ -70,7 +71,7 @@ export const PointLights: React.FC<PointLightsProps> = ({
             intensity={intensity_2}
             position={position_2}
           />
-          {helper_2 && <Helper light={pointLight2Ref} />}
+          {helper_2 && <Helper light={pointLight2Ref} type={LightType.POINT} />}
         </>
       )}
     </>

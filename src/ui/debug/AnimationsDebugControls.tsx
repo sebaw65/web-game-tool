@@ -2,16 +2,17 @@ import type React from "react";
 import { useEffect } from "react";
 import { useAnimations } from "@react-three/drei";
 import { useControls } from "leva";
-import * as THREE from "three";
+import { AnimationClip } from "three";
+import { useThree } from "@react-three/fiber";
 
 interface AnimationProps {
-  animations: THREE.AnimationClip[];
-  scene: THREE.Group;
+  animations: AnimationClip[];
 }
 
-export const Animation: React.FC<AnimationProps> = ({ animations, scene }) => {
-  if (!scene) return;
-
+export const AnimationsDebugControls: React.FC<AnimationProps> = ({
+  animations,
+}) => {
+  const { scene } = useThree();
   const { actions, names, mixer } = useAnimations(animations, scene);
 
   const { animationName } = useControls(

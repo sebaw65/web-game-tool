@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
 import { useControls } from "leva";
-import * as THREE from "three";
+import { HemisphereLight as HemisphereLightType } from "three";
 import { Helper } from "./Helper";
+import { LightType } from "@/model/lightType";
 
 export const HemisphereLight: React.FC = () => {
-  const lightRef = useRef<THREE.HemisphereLight>(null!);
+  const lightRef = useRef<HemisphereLightType>(null!);
 
   const { color, groundColor, intensity, position, helper } = useControls(
     "Hemisphere Light Options",
@@ -27,7 +28,7 @@ export const HemisphereLight: React.FC = () => {
         intensity={intensity}
         position={position}
       />
-      {helper && <Helper light={lightRef} />}
+      {helper && <Helper light={lightRef} type={LightType.HEMISPHERE} />}
     </>
   );
 };

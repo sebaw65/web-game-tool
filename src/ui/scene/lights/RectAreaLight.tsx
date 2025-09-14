@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
-import { Helper } from "./Helper";
 import { useControls } from "leva";
-import * as THREE from "three";
+import { RectAreaLight as RectAreaLightType } from "three";
+import { Helper } from "./Helper";
+import { LightType } from "@/model/lightType";
 
 export const RectAreaLight: React.FC = () => {
-  const lightRef = useRef<THREE.RectAreaLight>(null!);
+  const lightRef = useRef<RectAreaLightType>(null!);
 
   const { width, color, height, intensity, position, rotation, helper } =
     useControls(
@@ -38,7 +39,7 @@ export const RectAreaLight: React.FC = () => {
         position={position}
         rotation={rotation}
       />
-      {helper && <Helper light={lightRef} />}
+      {helper && <Helper light={lightRef} type={LightType.RECT} />}
     </>
   );
 };

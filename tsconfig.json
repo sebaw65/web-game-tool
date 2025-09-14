@@ -32,7 +32,8 @@
       "@/utils/*": ["./src/utils/*"],
       "@/assets/*": ["./src/assets/*"],
       "@/types/*": ["./src/types/*"],
-      "@/services/*": ["./src/services/*"]
+      "@/services/*": ["./src/services/*"],
+      "@/ui/*": ["./src/ui/*"]
     }
   },
   "include": ["src"],

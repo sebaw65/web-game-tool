@@ -1,5 +1,5 @@
 import { Leva } from "leva";
-import { LoadFileDragDrop } from "./components/LoadFileDragDrop";
+import { LoadFileDragDrop } from "./ui/LoadFileDragDrop";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
 import { Scene } from "@/ui/scene/Scene";

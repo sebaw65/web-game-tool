@@ -9,7 +9,7 @@ import {
   SpotLightHelper,
 } from "three";
 import { helperParams } from "./types";
-import { LightType } from "@/model/lightType";
+import { LightType } from "@/model/types/LightType";
 
 const helpersSphereSize = 10;
 

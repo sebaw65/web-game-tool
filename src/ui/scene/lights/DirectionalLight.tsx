@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useControls } from "leva";
 import * as THREE from "three";
 import { Helper } from "./Helper";
-import { LightType } from "@/model/lightType";
+import { LightType } from "@/model/types/LightType";
 
 export const DirectionalLight: React.FC = () => {
   const lightRef = useRef<THREE.DirectionalLight>(null!);

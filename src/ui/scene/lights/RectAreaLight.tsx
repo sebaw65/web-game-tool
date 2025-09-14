@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useControls } from "leva";
 import { RectAreaLight as RectAreaLightType } from "three";
 import { Helper } from "./Helper";
-import { LightType } from "@/model/lightType";
+import { LightType } from "@/model/types/LightType";
 
 export const RectAreaLight: React.FC = () => {
   const lightRef = useRef<RectAreaLightType>(null!);

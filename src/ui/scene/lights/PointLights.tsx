@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useControls, folder } from "leva";
 import { PointLight } from "three";
 import { Helper } from "./Helper";
-import { LightType } from "@/model/lightType";
+import { LightType } from "@/model/types/LightType";
 
 interface PointLightsProps {
   enableSecond?: boolean;
